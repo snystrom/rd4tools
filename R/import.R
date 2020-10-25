@@ -62,3 +62,24 @@ d4_bed_to_granges <- function(df){
   df["start"] <- df["start"] + 1
   GenomicRanges::GRanges(df)
 }
+
+#' Title
+#'
+#' TODO: figure out how to deal with <0. It would be nice for this to be an
+#' integer column
+#' @param lines
+#'
+#' @return data.frame("count", "n")
+#' @export
+#'
+#' @examples
+d4_stat_hist_to_df <- function(lines){
+  strsplit(lines, "\n")[[1]] %>%
+    strsplit(., "\t") %>%
+    lapply(function(x){
+      data.frame("count" = x[1],
+                 "n" = as.integer(x[2]))
+    }) %>%
+    do.call("rbind", .)
+
+}
