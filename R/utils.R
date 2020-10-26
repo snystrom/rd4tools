@@ -156,11 +156,16 @@ d4_hist <- function(file, regions, threads = 1, d4utils = NULL) {
 #' @md
 #'
 #' @examples
+#' \donttest{
+#' d4_create("example.fq", "example.d4")
+#' }
 d4_create <- function(input, output, ..., d4utils = NULL){
 
-  flags <- cmdfun::cmd_args_dots() %>%
-    cmdfun::cmd_list_interp() %>%
-    cmdfun::cmd_list_to_flags()
+  user_flags <- cmdfun::cmd_args_dots() %>%
+    cmdfun::cmd_list_interp()
+
+  flags <- user_flags %>%
+    cmdfun::cmd_list_to_flags(prefix = "--")
 
   flags <- c(flags, input, output)
   out <- d4_run("create", flags, path = d4utils)
@@ -168,11 +173,21 @@ d4_create <- function(input, output, ..., d4utils = NULL){
   if (out$status > 0) {
     message(out$stderr)
 
-    #d4_run("create", "--help", path = d4utils)$stdout %>%
-    #  cmdfun::cmd_help_parse_flags(split_newline = TRUE) %>%
-    #  cmdfun::cmd_help
+    # Matches ... arguments to valid flags
+    # provides suggestion if misspelled
+    d4_run("create", "--help", path = d4utils)$stdout %>%
+      cmdfun::cmd_help_parse_flags(split_newline = TRUE) %>%
+      cmdfun::cmd_help_flags_similar(names(user_flags), .fun = ~{gsub("-", "_", .x)}) %>%
+      cmdfun::cmd_help_flags_suggest()
+
     stop("Process had non-zero exit status")
   }
+
+  if (!file.exists(output)) {
+    stop(paste(output, "was not created"))
+  }
+
+  return(output)
 
 }
 
