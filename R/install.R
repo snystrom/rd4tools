@@ -1,17 +1,18 @@
 #' @noRd
-cargo_path_search <- cmdfun::cmd_path_search(option_name = "cargo",
-                                             default_path = "~/.cargo/bin")
+cargo_path_search <- cmdfun::cmd_path_search(default_path = "~/.cargo/bin/cargo")
+
+cargo_is_installed <- cmdfun::cmd_install_is_valid(cargo_path_search)
 
 #' @noRd
 d4_search_path <- cmdfun::cmd_path_search(option_name = "d4utils",
-                                          default_path = "~/.cargo/bin")
+                                          default_path = "~/.cargo/bin/d4utils")
 
 
 #' Check that d4utils is installed
 #'
 #' @param d4utils path to d4utils (or use options("d4utils" = "path/to/d4utils"))
 #'
-#' @return Prints check if installed, red X if not detected
+#' @return Prints green check if installed, red X if not detected
 #'
 #' @examples
 #' @export
