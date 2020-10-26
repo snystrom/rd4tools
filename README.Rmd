@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # rd4utils
 
 <!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
 rd4utils wraps the [d4utils](https://github.com/38/d4-format) tool for reading &
@@ -44,6 +45,9 @@ rd4utils relies on a local install of
 have [Rust](https://www.rust-lang.org/tools/install) installed, can compile from
 source using `cargo install d4utils`.
 
+rd4utils provides `d4_install_cargo()` which will run `cargo install d4utils`
+from R, installing it in the users default cargo directory.
+
 rd4utils needs to know the location of `rd4utils` on your local machine. If
 installing using cargo, rd4utils should autodetect the binary if installed at
 `~/.cargo/bin/d4utils`. Otherwise, you can set the `d4utils` option once per
@@ -61,10 +65,14 @@ d4_install_check()
 
 ## Examples
 
- - `d4_view()`
- - `d4_view_genome()`
- - `d4_stat()`
- - `d4_hist()`
+Examples are still a work-in-progress, but the following functions all work in
+my hands. See their man pages for details on usage.
+
+ - `d4_create()` convert a Bigwig, BAM, or CRAM file to d4 format.
+ - `d4_view()` returns signal within target regions as `GRanges`
+ - `d4_view_genome()` returns genome file used as `Seqinfo`
+ - `d4_stat()` returns summary statistics
+ - `d4_histogram()` returns a histogram of score values
 
 # Citation
 

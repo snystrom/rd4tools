@@ -134,7 +134,8 @@ d4_histogram <- function(file, regions = NULL, threads = 1, d4utils = NULL) {
 #' Convert a file to d4 format
 #'
 #' @param input path to BigWig, BAM, CRAM file
-#' @param output path to save d4 output
+#' @param output path to save d4 output. If unset, the file is named identically
+#'   and in the same path as the input file, but with the .d4 extension.
 #' @param ... see additional arguments table below for valid arguments
 #' @param d4utils path to d4utils (or use options("d4utils" = "path/to/d4utils"))
 #'
@@ -161,9 +162,18 @@ d4_histogram <- function(file, regions = NULL, threads = 1, d4utils = NULL) {
 #'
 #' @examples
 #' \donttest{
-#' d4_create("example.fq", "example.d4")
+#' # Will create "example.d4"
+#' d4_create("example.fq")
+#'
+#' # Explicit naming is done by passing a name to "output"
+#' d4_create("example.fq", "my_new_file.d4")
 #' }
-d4_create <- function(input, output, ..., d4utils = NULL){
+d4_create <- function(input, output = NULL, ..., d4utils = NULL){
+
+  if (is.null(output)) {
+    name <- tools::file_path_sans_ext(input)
+    output <- paste0(name, ".d4")
+  }
 
   user_flags <- cmdfun::cmd_args_dots() %>%
     cmdfun::cmd_list_interp()

@@ -7,15 +7,15 @@
 d4_view(file, regions, d4utils = NULL)
 }
 \arguments{
-\item{file}{path do d4 file}
+\item{file}{path to d4 file}
 
-\item{regions}{positions ("chr:start-end", or GRanges object). Coordiates should
+\item{regions}{positions ("chr:start-end", or GRanges object). Coordinates should
 be 1 indexed (GRanges format), not 0 indexed (bed format).}
 
 \item{d4utils}{path to d4utils (or use options("d4utils" = "path/to/d4utils"))}
 }
 \value{
-GRanges object with `counts` column
+GRanges object with `score` column
 }
 \description{
 View signal within regions

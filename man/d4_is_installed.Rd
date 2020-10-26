@@ -15,3 +15,7 @@ bool
 \description{
 Return boolean if d4utils is installed
 }
+\examples{
+d4_is_installed()
+
+}

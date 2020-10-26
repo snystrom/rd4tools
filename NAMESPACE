@@ -2,7 +2,8 @@
 
 export(d4_create)
 export(d4_framedump)
-export(d4_hist)
+export(d4_histogram)
+export(d4_install_cargo)
 export(d4_install_check)
 export(d4_is_installed)
 export(d4_stat)

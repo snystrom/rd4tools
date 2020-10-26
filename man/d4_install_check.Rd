@@ -10,8 +10,11 @@ d4_install_check(d4utils = NULL)
 \item{d4utils}{path to d4utils (or use options("d4utils" = "path/to/d4utils"))}
 }
 \value{
-Prints check if installed, red X if not detected
+Prints green check if installed, red X if not detected
 }
 \description{
 Check that d4utils is installed
+}
+\examples{
+d4_install_check()
 }

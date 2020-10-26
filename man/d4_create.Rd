@@ -4,12 +4,13 @@
 \alias{d4_create}
 \title{Convert a file to d4 format}
 \usage{
-d4_create(input, output, ..., d4utils = NULL)
+d4_create(input, output = NULL, ..., d4utils = NULL)
 }
 \arguments{
 \item{input}{path to BigWig, BAM, CRAM file}
 
-\item{output}{path to save d4 output}
+\item{output}{path to save d4 output. If unset, the file is named identically
+and in the same path as the input file, but with the .d4 extension.}
 
 \item{...}{see additional arguments table below for valid arguments}
 
@@ -39,3 +40,12 @@ Convert a file to d4 format
 }
 }
 
+\examples{
+\donttest{
+# Will create "example.d4"
+d4_create("example.fq")
+
+# Explicit naming is done by passing a name to "output"
+d4_create("example.fq", "my_new_file.d4")
+}
+}
