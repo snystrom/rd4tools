@@ -15,6 +15,7 @@ d4_search_path <- cmdfun::cmd_path_search(option_name = "d4utils",
 #' @return Prints green check if installed, red X if not detected
 #'
 #' @examples
+#' d4_install_check()
 #' @export
 d4_install_check <- function(d4utils = NULL) {
   cmdfun::cmd_install_check(d4_search_path, path = d4utils)
@@ -26,6 +27,8 @@ d4_install_check <- function(d4utils = NULL) {
 #' @return bool
 #'
 #' @examples
+#' d4_is_installed()
+#'
 #' @export
 d4_is_installed <- function(d4utils = NULL) {
   cmdfun::cmd_install_is_valid(d4_search_path, path = d4utils)
