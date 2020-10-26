@@ -6,15 +6,17 @@ Authors@R: person("Spencer", "Nystrom",
     email = "nystromdev@gmail.com", 
     role = c("aut", "cre", "cph"),
     comment = c(ORCID = "0000-0003-1000-1579"))
-Description: An interface to the d4utils tool
+Description: An interface to the d4utils tool.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
     cmdfun,
     GenomicRanges,
+    GenomeInfoDb,
     magrittr,
     processx,
+    tools,
     usethis
 SystemRequirements: Rust <https://www.rust-lang.org/tools/install>
 URL: https://github.com/snystrom/rd4utils

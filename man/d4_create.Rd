@@ -41,7 +41,7 @@ Convert a file to d4 format
 }
 
 \examples{
-\donttest{
+\dontrun{
 # Will create "example.d4"
 d4_create("example.fq")
 

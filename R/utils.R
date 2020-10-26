@@ -159,9 +159,10 @@ d4_histogram <- function(file, regions = NULL, threads = 1, d4utils = NULL) {
 #' @return path to new d4 object
 #' @export
 #' @md
+#' @importFrom tools file_path_sans_ext
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # Will create "example.d4"
 #' d4_create("example.fq")
 #'
@@ -171,7 +172,7 @@ d4_histogram <- function(file, regions = NULL, threads = 1, d4utils = NULL) {
 d4_create <- function(input, output = NULL, ..., d4utils = NULL){
 
   if (is.null(output)) {
-    name <- tools::file_path_sans_ext(input)
+    name <- file_path_sans_ext(input)
     output <- paste0(name, ".d4")
   }
 
@@ -210,9 +211,9 @@ d4_create <- function(input, output = NULL, ..., d4utils = NULL){
 #' @return
 #' @export
 #'
-#' @examples
 #' TODO: REMOVE NO RD
 #' @noRd
+#' @examples
 d4_framedump <- function() {
 
 }

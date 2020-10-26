@@ -8,7 +8,7 @@ bed_input <- function(regions) UseMethod("bed_input")
 #' @param regions
 #'
 #' @return
-#' @importFrom GenomicRanges start
+#' @importFrom GenomicRanges start `start<-`
 #'
 #' @noRd
 region_input.GRanges <- function(regions){
@@ -34,6 +34,8 @@ region_input.character <- function(regions){
 #' @param path file path for bed file
 #'
 #' @return
+#'
+#' @importFrom utils write.table
 #'
 #' @noRd
 bed_input.GRanges <- function(regions, path = tempfile(fileext = "bed")){
