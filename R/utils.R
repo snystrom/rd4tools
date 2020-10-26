@@ -100,21 +100,25 @@ d4_stat <- function(file, regions, method = c("mean", "median"), threads = 1, d4
 
 #' Collect histogram of d4 file
 #'
-#' TODO: make regions optional (use cmdfun to parse?)
-#'
 #' @param file d4 file path
-#' @param regions regions in "chr:start-end" format, or GRanges
-#' @param threads number of threads to use
+#' @param regions optional regions in which to compute histogram values.
+#'   Formatted as string: "chr:start-end", or as GRanges. Note coordinates
+#'   should use base 1 index, not bed-format 0 index. (default: NULL)
+#' @param threads number of threads to use (default: 1)
 #' @param d4utils path to d4utils (or use options("d4utils" = "path/to/d4utils"))
 #'
 #' @return data.frame
 #' @export
 #'
 #' @examples
-d4_hist <- function(file, regions, threads = 1, d4utils = NULL) {
+d4_histogram <- function(file, regions = NULL, threads = 1, d4utils = NULL) {
 
-  regions <- bed_input(regions)
-  flags <- c(file, "-r", regions, "-s", "hist", "-t", threads)
+  if (!is.null(regions)) {
+    regions <- bed_input(regions)
+    flags <- c(file, "-r", regions, "-s", "hist", "-t", threads)
+  } else {
+    flags <- c(file, "-s", "hist", "-t", threads)
+  }
   out <- d4_run("stat", flags, path = d4utils)
 
   if (out$status > 0) {
