@@ -2,13 +2,40 @@
 % Please edit documentation in R/utils.R
 \name{d4_create}
 \alias{d4_create}
-\title{Work in progress}
+\title{Convert a file to d4 format}
 \usage{
-d4_create()
+d4_create(input, output, ..., d4utils = NULL)
+}
+\arguments{
+\item{input}{path to BigWig, BAM, CRAM file}
+
+\item{output}{path to save d4 output}
+
+\item{...}{see additional arguments table below for valid arguments}
+
+\item{d4utils}{path to d4utils (or use options("d4utils" = "path/to/d4utils"))}
 }
 \value{
-
+path to new d4 object
 }
 \description{
-Work in progress
+Convert a file to d4 format
 }
+\section{additional arguments}{
+\tabular{ccc}{
+   name \tab data type \tab description \cr
+   deflate \tab \code{logical(1)} \tab Enable deflate compression \cr
+   dict_auto \tab \code{logical(1)} \tab Automatically determine dictionary type by random sampling \cr
+   dump_dict \tab \code{logical(1)} \tab do not profile BAM file, only dump dictionary \cr
+   sparse \tab \code{logical(1)} \tab Sparse mode, same as \verb{deflate = TRUE, dict_range = "0-1"}. Enables secondary table compression and disable primary table \cr
+   deflate_level \tab \code{integer(1)} \tab Configure the deflate algorithm, default 5 \cr
+   dict_file \tab \code{character(1)} \tab Path to a file defining the values of the dictionary \cr
+   dict_range \tab \code{character(1)} \tab Dictionary specification as a range: "a-b" encoding values from A to B (exclusive) \cr
+   filter \tab \code{character(1)} \tab A regex matching the genome name should present in the output file (note: use a shell regex, not R-style regexes) \cr
+   genome \tab \code{character(1)} \tab genome description file (Used by BED inputs) \cr
+   mapping_qual \tab \code{integer(1)} \tab minimal mapping quality (only valid with CRAM/BAM inputs) \cr
+   ref \tab \code{character(1)} \tab path to reference genome file (only used with CRAM inputs) \cr
+   threads \tab \code{integer(1)} \tab number of threads to use for encoding \cr
+}
+}
+

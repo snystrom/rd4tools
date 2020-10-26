@@ -15,7 +15,7 @@ be 1 indexed (GRanges format), not 0 indexed (bed format).}
 \item{d4utils}{path to d4utils (or use options("d4utils" = "path/to/d4utils"))}
 }
 \value{
-
+GRanges object with `counts` column
 }
 \description{
 View signal within regions

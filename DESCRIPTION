@@ -11,8 +11,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    cmdfun
+    cmdfun,
+    GenomicRanges,
+    magrittr,
+    processx,
+    usethis
 SystemRequirements: Rust <https://www.rust-lang.org/tools/install>
 URL: https://github.com/snystrom/rd4utils
 BugReports: https://github.com/snystrom/rd4utils/issues
 RoxygenNote: 7.1.1
+Suggests: 
+    testthat
