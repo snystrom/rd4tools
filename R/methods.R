@@ -48,12 +48,11 @@ bed_input.GRanges <- function(regions, path = tempfile(fileext = "bed")){
 
 #' Title
 #'
-#' @param regions
-#' @param path
+#' @param regions regions
 #'
 #' @return
 #' @noRd
-bed_input.character <- function(regions, path = tempfile(fileext = "bed")){
+bed_input.character <- function(regions){
   GenomicRanges::GRanges(regions) %>%
     bed_input()
 }
