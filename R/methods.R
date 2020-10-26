@@ -1,4 +1,6 @@
+#' @noRd
 region_input <- function(regions) UseMethod("region_input")
+#' @noRd
 bed_input <- function(regions) UseMethod("bed_input")
 
 #' Convert GRanges to bed coordinates
@@ -44,6 +46,13 @@ bed_input.GRanges <- function(regions, path = tempfile(fileext = "bed")){
   return(path)
 }
 
+#' Title
+#'
+#' @param regions
+#' @param path
+#'
+#' @return
+#' @noRd
 bed_input.character <- function(regions, path = tempfile(fileext = "bed")){
   GenomicRanges::GRanges(regions) %>%
     bed_input()
