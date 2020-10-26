@@ -70,9 +70,7 @@ d4_bed_to_granges <- function(df){
 #' @param lines
 #'
 #' @return data.frame("count", "n")
-#' @export
-#'
-#' @examples
+#' @noRd
 d4_stat_hist_to_df <- function(lines){
   strsplit(lines, "\n")[[1]] %>%
     strsplit(., "\t") %>%
