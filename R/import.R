@@ -2,7 +2,7 @@
 #'
 #' @param lines raw lines from d4utils view
 #'
-#' @return a data.frame of `chr`, `start`, `end`, `count`
+#' @return a data.frame of `chr`, `start`, `end`, `score`
 #'
 #' @examples
 #' lines <- "chr3R\t16703068\t16703069\t259\nchr3R\t16703069\t16703070\t260\n"
@@ -15,7 +15,7 @@ d4_view_lines_to_df <- function(lines){
       data.frame("chr" = x[1],
                  "start" = as.integer(x[2]),
                  "end" = as.integer(x[3]),
-                 "count" = as.double(x[4]))
+                 "score" = as.double(x[4]))
     }) %>%
     do.call("rbind", .)
 }
@@ -26,7 +26,6 @@ d4_view_lines_to_df <- function(lines){
 #'
 #' @return
 #'
-#' @examples
 #' @noRd
 d4_view_genome_lines_to_df <- function(lines){
   strsplit(lines, "\n")[[1]] %>%
@@ -69,13 +68,13 @@ d4_bed_to_granges <- function(df){
 #' integer column
 #' @param lines
 #'
-#' @return data.frame("count", "n")
+#' @return data.frame("score", "n")
 #' @noRd
 d4_stat_hist_to_df <- function(lines){
   strsplit(lines, "\n")[[1]] %>%
     strsplit(., "\t") %>%
     lapply(function(x){
-      data.frame("count" = x[1],
+      data.frame("score" = x[1],
                  "n" = as.integer(x[2]))
     }) %>%
     do.call("rbind", .)

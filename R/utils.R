@@ -7,22 +7,22 @@
 #' @return processx output
 #'
 #' @examples
+#' d4_run("create", c("input.fa", "output.d4"))
 #' @noRd
 d4_run <- function(util, flags = NULL, path = NULL){
   d4path <- d4_search_path(path)
   processx::run(d4path, c(util, flags), error_on_status = FALSE)
 }
 
-
 #' View signal within regions
 #'
 #'
-#' @param file path do d4 file
-#' @param regions positions ("chr:start-end", or GRanges object). Coordiates should
+#' @param file path to d4 file
+#' @param regions positions ("chr:start-end", or GRanges object). Coordinates should
 #'   be 1 indexed (GRanges format), not 0 indexed (bed format).
 #' @param d4utils path to d4utils (or use options("d4utils" = "path/to/d4utils"))
 #'
-#' @return GRanges object with `counts` column
+#' @return GRanges object with `score` column
 #' @export
 #'
 #' @importFrom magrittr %>%
