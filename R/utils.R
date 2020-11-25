@@ -81,9 +81,9 @@ d4_view_genome <- function(file, d4tools = NULL) {
 #' @export
 #'
 #' @examples
-d4_stat <- function(file, regions, method = c("mean", "median"), threads = 1, d4tools = NULL) {
+d4_stat <- function(file, regions, method = "mean", threads = 1, d4tools = NULL) {
   match.arg(method, c("mean", "median"))
-  regions <- region_input(regions)
+  regions <- bed_input(regions)
   flags <- c(file, "-r", regions, "-s", method, "-t", threads)
   out <- d4_run("stat", flags, path = d4tools)
 
@@ -94,8 +94,8 @@ d4_stat <- function(file, regions, method = c("mean", "median"), threads = 1, d4
 
   df <- d4_view_lines_to_df(out$stdout)
   # TODO: parse method to get name of column
-  names(df)[5] <- method
-  df
+  names(df)[4] <- method
+  GRanges(df)
 }
 
 #' Collect histogram of d4 file
@@ -135,17 +135,17 @@ d4_histogram <- function(file, regions = NULL, threads = 1, d4tools = NULL) {
 #' @return
 #' @export
 #'
-#' TODO: REMOVE NO RD
 #' @noRd
 #' @examples
 d4_framedump <- function() {
+  # TODO: REMOVE NO RD
 
 }
 
 ## Unsure proper implementation
 ## But could be neat to wrap the svg for use with patchwork/cowplot
-#' TODO: REMOVE NO RD
 #' @noRd
 d4_plot <- function() {
+  # TODO: REMOVE NO RD
 
 }

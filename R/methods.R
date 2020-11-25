@@ -11,6 +11,7 @@ bed_input <- function(regions) UseMethod("bed_input")
 #' @importFrom GenomicRanges start `start<-`
 #'
 #' @noRd
+#' @export
 region_input.GRanges <- function(regions){
   # convert from 1 to 0 index ranges
   start(regions) <- start(regions) - 1
@@ -23,6 +24,7 @@ region_input.GRanges <- function(regions){
 #'
 #' @return chr:start-end
 #' @noRd
+#' @export
 region_input.character <- function(regions){
   regions
 }
@@ -38,6 +40,7 @@ region_input.character <- function(regions){
 #' @importFrom utils write.table
 #'
 #' @noRd
+#' @export
 bed_input.GRanges <- function(regions, path = tempfile(fileext = "bed")){
   write.table(data.frame(regions)[1:3],
               file = path,
@@ -54,6 +57,7 @@ bed_input.GRanges <- function(regions, path = tempfile(fileext = "bed")){
 #'
 #' @return
 #' @noRd
+#' @export
 bed_input.character <- function(regions){
   GenomicRanges::GRanges(regions) %>%
     bed_input()
