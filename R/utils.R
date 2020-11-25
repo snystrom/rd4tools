@@ -1,8 +1,8 @@
-#' Run d4utils
+#' Run d4tools
 #'
 #' @param util name of subcommand
 #' @param flags flags to subcommand
-#' @param path path to d4utils
+#' @param path path to d4tools
 #'
 #' @return processx output
 #'
@@ -20,7 +20,7 @@ d4_run <- function(util, flags = NULL, path = NULL){
 #' @param file path to d4 file
 #' @param regions positions ("chr:start-end", or GRanges object). Coordinates should
 #'   be 1 indexed (GRanges format), not 0 indexed (bed format).
-#' @param d4utils path to d4utils (or use options("d4utils" = "path/to/d4utils"))
+#' @param d4tools path to d4tools (or use options("d4tools" = "path/to/d4tools"))
 #'
 #' @return GRanges object with `score` column
 #' @export
@@ -29,12 +29,12 @@ d4_run <- function(util, flags = NULL, path = NULL){
 #' @importFrom GenomicRanges GRanges
 #'
 #' @examples
-d4_view <- function(file, regions, d4utils = NULL) {
+d4_view <- function(file, regions, d4tools = NULL) {
   # TODO: unwrap flag? for unbinned signal?
 
   regions <- region_input(regions)
   flags <- c(file, regions)
-  out <- d4_run("view", flags = flags, path = d4utils)
+  out <- d4_run("view", flags = flags, path = d4tools)
 
   if (out$status > 0) {
     message(out$stderr)
@@ -48,16 +48,16 @@ d4_view <- function(file, regions, d4utils = NULL) {
 #' View genome info as Seqinfo
 #'
 #' @param file d4 file
-#' @param d4utils path to d4utils (or use options("d4utils" = "path/to/d4utils"))
+#' @param d4tools path to d4tools (or use options("d4tools" = "path/to/d4tools"))
 #'
 #' @return `Seqinfo` object.
 #' @export
 #'
 #' @examples
-d4_view_genome <- function(file, d4utils = NULL) {
+d4_view_genome <- function(file, d4tools = NULL) {
 
   flags <- c("-g", file)
-  out <- d4_run("view", flags = flags, path = d4utils)
+  out <- d4_run("view", flags = flags, path = d4tools)
 
   if (out$status > 0) {
     message(out$stderr)
@@ -75,17 +75,17 @@ d4_view_genome <- function(file, d4utils = NULL) {
 #' @param regions positions ("chr:start-end", or GRanges object). Coordiates should
 #' @param method statistic to calculate. One of "mean" or "median".
 #' @param threads number of threads to use
-#' @param d4utils path to d4utils (or use options("d4utils" = "path/to/d4utils"))
+#' @param d4tools path to d4tools (or use options("d4tools" = "path/to/d4tools"))
 #'
 #' @return
 #' @export
 #'
 #' @examples
-d4_stat <- function(file, regions, method = c("mean", "median"), threads = 1, d4utils = NULL) {
+d4_stat <- function(file, regions, method = c("mean", "median"), threads = 1, d4tools = NULL) {
   match.arg(method, c("mean", "median"))
   regions <- region_input(regions)
   flags <- c(file, "-r", regions, "-s", method, "-t", threads)
-  out <- d4_run("stat", flags, path = d4utils)
+  out <- d4_run("stat", flags, path = d4tools)
 
   if (out$status > 0) {
     message(out$stderr)
@@ -105,13 +105,13 @@ d4_stat <- function(file, regions, method = c("mean", "median"), threads = 1, d4
 #'   Formatted as string: "chr:start-end", or as GRanges. Note coordinates
 #'   should use base 1 index, not bed-format 0 index. (default: NULL)
 #' @param threads number of threads to use (default: 1)
-#' @param d4utils path to d4utils (or use options("d4utils" = "path/to/d4utils"))
+#' @param d4tools path to d4tools (or use options("d4tools" = "path/to/d4tools"))
 #'
 #' @return data.frame
 #' @export
 #'
 #' @examples
-d4_histogram <- function(file, regions = NULL, threads = 1, d4utils = NULL) {
+d4_histogram <- function(file, regions = NULL, threads = 1, d4tools = NULL) {
 
   if (!is.null(regions)) {
     regions <- bed_input(regions)
@@ -119,7 +119,7 @@ d4_histogram <- function(file, regions = NULL, threads = 1, d4utils = NULL) {
   } else {
     flags <- c(file, "-s", "hist", "-t", threads)
   }
-  out <- d4_run("stat", flags, path = d4utils)
+  out <- d4_run("stat", flags, path = d4tools)
 
   if (out$status > 0) {
     message(out$stderr)
@@ -127,82 +127,6 @@ d4_histogram <- function(file, regions = NULL, threads = 1, d4utils = NULL) {
   }
 
   d4_stat_hist_to_df(out$stdout)
-
-}
-
-
-#' Convert a file to d4 format
-#'
-#' @param input path to BigWig, BAM, CRAM file
-#' @param output path to save d4 output. If unset, the file is named identically
-#'   and in the same path as the input file, but with the .d4 extension.
-#' @param ... see additional arguments table below for valid arguments
-#' @param d4utils path to d4utils (or use options("d4utils" = "path/to/d4utils"))
-#'
-#' @section additional arguments:
-#'
-#' | name          | data type      | description                |
-#' |:-------------:|:--------------:|:--------------------------:|
-#' | deflate       | `logical(1)`   | Enable deflate compression |
-#' | dict_auto     | `logical(1)`   | Automatically determine dictionary type by random sampling |
-#' | dump_dict     | `logical(1)`   | do not profile BAM file, only dump dictionary |
-#' | sparse        | `logical(1)`   | Sparse mode, same as `deflate = TRUE, dict_range = "0-1"`. Enables secondary table compression and disable primary table |
-#' | deflate_level | `integer(1)`   | Configure the deflate algorithm, default 5 |
-#' | dict_file     | `character(1)` | Path to a file defining the values of the dictionary |
-#' | dict_range    | `character(1)` | Dictionary specification as a range: "a-b" encoding values from A to B (exclusive) |
-#' | filter        | `character(1)` | A regex matching the genome name should present in the output file (note: use a shell regex, not R-style regexes) |
-#' | genome        | `character(1)` | genome description file (Used by BED inputs) |
-#' | mapping_qual  | `integer(1)`   | minimal mapping quality (only valid with CRAM/BAM inputs) |
-#' | ref           | `character(1)` | path to reference genome file (only used with CRAM inputs) |
-#' | threads       | `integer(1)`   | number of threads to use for encoding |
-#'
-#' @return path to new d4 object
-#' @export
-#' @md
-#' @importFrom tools file_path_sans_ext
-#'
-#' @examples
-#' \dontrun{
-#' # Will create "example.d4"
-#' d4_create("example.fq")
-#'
-#' # Explicit naming is done by passing a name to "output"
-#' d4_create("example.fq", "my_new_file.d4")
-#' }
-d4_create <- function(input, output = NULL, ..., d4utils = NULL){
-
-  if (is.null(output)) {
-    name <- file_path_sans_ext(input)
-    output <- paste0(name, ".d4")
-  }
-
-  user_flags <- cmdfun::cmd_args_dots() %>%
-    cmdfun::cmd_list_interp()
-
-  flags <- user_flags %>%
-    cmdfun::cmd_list_to_flags(prefix = "--")
-
-  flags <- c(flags, input, output)
-  out <- d4_run("create", flags, path = d4utils)
-
-  if (out$status > 0) {
-    message(out$stderr)
-
-    # Matches ... arguments to valid flags
-    # provides suggestion if misspelled
-    d4_run("create", "--help", path = d4utils)$stdout %>%
-      cmdfun::cmd_help_parse_flags(split_newline = TRUE) %>%
-      cmdfun::cmd_help_flags_similar(names(user_flags), .fun = ~{gsub("-", "_", .x)}) %>%
-      cmdfun::cmd_help_flags_suggest()
-
-    stop("Process had non-zero exit status")
-  }
-
-  if (!file.exists(output)) {
-    stop(paste(output, "was not created"))
-  }
-
-  return(output)
 
 }
 

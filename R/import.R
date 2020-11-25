@@ -1,6 +1,6 @@
 #' Read d4 view into data.frame
 #'
-#' @param lines raw lines from d4utils view
+#' @param lines raw lines from d4tools view
 #'
 #' @return a data.frame of `chr`, `start`, `end`, `score`
 #'
