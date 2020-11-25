@@ -2,18 +2,18 @@
 % Please edit documentation in R/install.R
 \name{d4_is_installed}
 \alias{d4_is_installed}
-\title{Return boolean if d4utils is installed}
+\title{Return boolean if d4tools is installed}
 \usage{
-d4_is_installed(d4utils = NULL)
+d4_is_installed(d4tools = NULL)
 }
 \arguments{
-\item{d4utils}{path to d4utils (or use options("d4utils" = "path/to/d4utils"))}
+\item{d4tools}{path to d4tools (or use options("d4tools" = "path/to/d4tools"))}
 }
 \value{
 bool
 }
 \description{
-Return boolean if d4utils is installed
+Return boolean if d4tools is installed
 }
 \examples{
 d4_is_installed()

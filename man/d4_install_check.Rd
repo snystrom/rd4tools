@@ -2,18 +2,18 @@
 % Please edit documentation in R/install.R
 \name{d4_install_check}
 \alias{d4_install_check}
-\title{Check that d4utils is installed}
+\title{Check that d4tools is installed}
 \usage{
-d4_install_check(d4utils = NULL)
+d4_install_check(d4tools = NULL)
 }
 \arguments{
-\item{d4utils}{path to d4utils (or use options("d4utils" = "path/to/d4utils"))}
+\item{d4tools}{path to d4tools (or use options("d4tools" = "path/to/d4tools"))}
 }
 \value{
 Prints green check if installed, red X if not detected
 }
 \description{
-Check that d4utils is installed
+Check that d4tools is installed
 }
 \examples{
 d4_install_check()

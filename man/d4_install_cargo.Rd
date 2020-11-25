@@ -2,7 +2,7 @@
 % Please edit documentation in R/install.R
 \name{d4_install_cargo}
 \alias{d4_install_cargo}
-\title{Build & Install d4utils Using Cargo}
+\title{Build & Install d4tools Using Cargo}
 \usage{
 d4_install_cargo(..., cargo = NULL)
 }
@@ -16,7 +16,7 @@ leading dashes, and replace dashes between words with underscores (_).}
 
 }
 \description{
-A convenience function for building & installing d4utils from crates.io using
+A convenience function for building & installing d4tools from crates.io using
 cargo. Requires a Rust install and `gcc`.
 }
 \examples{

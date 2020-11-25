@@ -4,12 +4,12 @@
 \alias{d4_view_genome}
 \title{View genome info as Seqinfo}
 \usage{
-d4_view_genome(file, d4utils = NULL)
+d4_view_genome(file, d4tools = NULL)
 }
 \arguments{
 \item{file}{d4 file}
 
-\item{d4utils}{path to d4utils (or use options("d4utils" = "path/to/d4utils"))}
+\item{d4tools}{path to d4tools (or use options("d4tools" = "path/to/d4tools"))}
 }
 \value{
 `Seqinfo` object.

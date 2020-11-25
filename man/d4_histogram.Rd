@@ -4,7 +4,7 @@
 \alias{d4_histogram}
 \title{Collect histogram of d4 file}
 \usage{
-d4_histogram(file, regions = NULL, threads = 1, d4utils = NULL)
+d4_histogram(file, regions = NULL, threads = 1, d4tools = NULL)
 }
 \arguments{
 \item{file}{d4 file path}
@@ -15,7 +15,7 @@ should use base 1 index, not bed-format 0 index. (default: NULL)}
 
 \item{threads}{number of threads to use (default: 1)}
 
-\item{d4utils}{path to d4utils (or use options("d4utils" = "path/to/d4utils"))}
+\item{d4tools}{path to d4tools (or use options("d4tools" = "path/to/d4tools"))}
 }
 \value{
 data.frame

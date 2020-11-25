@@ -4,13 +4,7 @@
 \alias{d4_stat}
 \title{Compute summary statistics within target regions}
 \usage{
-d4_stat(
-  file,
-  regions,
-  method = c("mean", "median"),
-  threads = 1,
-  d4utils = NULL
-)
+d4_stat(file, regions, method = "mean", threads = 1, d4tools = NULL)
 }
 \arguments{
 \item{file}{path to d4 file}
@@ -21,7 +15,7 @@ d4_stat(
 
 \item{threads}{number of threads to use}
 
-\item{d4utils}{path to d4utils (or use options("d4utils" = "path/to/d4utils"))}
+\item{d4tools}{path to d4tools (or use options("d4tools" = "path/to/d4tools"))}
 }
 \value{
 
